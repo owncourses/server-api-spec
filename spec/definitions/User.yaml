@@ -1,0 +1,24 @@
+properties:
+  email:
+    type: string
+  roles:
+    items:
+      type: string
+    type: array
+  firstName:
+    type: string
+  lastName:
+    type: string
+  courses:
+    items:
+      $ref: '#/definitions/Course'
+    type: array
+  created:
+    type: string
+    format: date-time
+  updated:
+    type: string
+    format: date-time
+  id:
+    type: string
+type: object

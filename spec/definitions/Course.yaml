@@ -1,0 +1,18 @@
+properties:
+  id:
+    type: integer
+  title:
+    type: string
+  description:
+    type: string
+  coverImageName:
+    type: string
+  coverImageFile:
+    type: string
+  created:
+    type: string
+    format: date-time
+  updated:
+    type: string
+    format: date-time
+type: object

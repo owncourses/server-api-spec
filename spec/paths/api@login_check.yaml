@@ -1,0 +1,26 @@
+post:
+  description: Login into the api.
+  produces:
+    - application/json
+  parameters:
+    - name: user
+      in: body
+      required: true
+      description: User to login
+      schema:
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+        type: object
+  responses:
+    '200':
+      description: Login successful
+      schema:
+        properties:
+          token:
+            type: string
+        type: object
+  tags:
+    - Login

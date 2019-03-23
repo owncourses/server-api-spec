@@ -1,0 +1,11 @@
+get:
+  summary: Get current user data.
+  responses:
+    '200':
+      description: Returns current user
+      schema:
+        $ref: '#/definitions/User'
+  tags:
+    - users
+  security:
+    - Bearer: []

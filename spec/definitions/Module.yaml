@@ -1,0 +1,22 @@
+properties:
+  title:
+    type: string
+  description:
+    type: string
+  course:
+    $ref: '#/definitions/Course'
+  lessons:
+    items:
+      $ref: '#/definitions/Lesson'
+    type: array
+  created:
+    type: string
+    format: date-time
+  updated:
+    type: string
+    format: date-time
+  position:
+    type: integer
+  id:
+    type: string
+type: object
