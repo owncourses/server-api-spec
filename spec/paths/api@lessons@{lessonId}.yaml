@@ -1,0 +1,16 @@
+get:
+  summary: Returns lesson details view.
+  parameters:
+    - name: lessonId
+      in: path
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Returns the lesson details view
+      schema:
+        $ref: '#/definitions/Lesson'
+  tags:
+    - lessons
+  security:
+    - Bearer: []

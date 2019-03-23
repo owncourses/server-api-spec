@@ -1,0 +1,18 @@
+get:
+  summary: List the active course modules.
+  parameters:
+    - name: courseId
+      in: path
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Returns the courses configured in platform
+      schema:
+        items:
+          $ref: '#/definitions/Module'
+        type: array
+  tags:
+    - courses
+  security:
+    - Bearer: []

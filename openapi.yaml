@@ -1,0 +1,224 @@
+swagger: '2.0'
+info:
+  title: Courses Server
+  description: API Server for courses platform
+  version: 1.0.0
+securityDefinitions:
+  Bearer:
+    name: Authorization
+    type: apiKey
+    in: header
+    description: 'Value: Bearer {jwt}'
+security:
+  - Bearer: []
+paths:
+  /api/courses:
+    get:
+      summary: List the all courses active in this instance.
+      responses:
+        '200':
+          description: Returns the courses configured in platform
+          schema:
+            items:
+              $ref: '#/definitions/Course'
+            type: array
+      tags:
+        - courses
+      security:
+        - Bearer: []
+  '/api/courses/{courseId}/modules':
+    get:
+      summary: List the active course modules.
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Returns the courses configured in platform
+          schema:
+            items:
+              $ref: '#/definitions/Module'
+            type: array
+      tags:
+        - courses
+      security:
+        - Bearer: []
+  '/api/lessons/{lessonId}':
+    get:
+      summary: Returns lesson details view.
+      parameters:
+        - name: lessonId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Returns the lesson details view
+          schema:
+            $ref: '#/definitions/Lesson'
+      tags:
+        - lessons
+      security:
+        - Bearer: []
+  /api/login_check:
+    post:
+      description: Login into the api.
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          required: true
+          description: User to login
+          schema:
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+            type: object
+      responses:
+        '200':
+          description: Login successful
+          schema:
+            properties:
+              token:
+                type: string
+            type: object
+      tags:
+        - Login
+  /api/users/me:
+    get:
+      summary: Get current user data.
+      responses:
+        '200':
+          description: Returns current user
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - users
+      security:
+        - Bearer: []
+  /api/users/register:
+    post:
+      summary: Register new user (accessible only from trusted servers).
+      parameters:
+        - name: register_user
+          in: body
+          description: Register user form
+          schema:
+            properties:
+              register_user:
+                $ref: '#/definitions/RegisterUserType'
+            type: object
+      responses:
+        '201':
+          description: Register new user
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - users
+definitions:
+  Course:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      coverImageName:
+        type: string
+      coverImageFile:
+        type: string
+      created:
+        type: string
+        format: date-time
+      updated:
+        type: string
+        format: date-time
+    type: object
+  Lesson:
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      embedCode:
+        type: string
+      module:
+        $ref: '#/definitions/Module'
+      created:
+        type: string
+        format: date-time
+      updated:
+        type: string
+        format: date-time
+      position:
+        type: integer
+      id:
+        type: string
+    type: object
+  Module:
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      course:
+        $ref: '#/definitions/Course'
+      lessons:
+        items:
+          $ref: '#/definitions/Lesson'
+        type: array
+      created:
+        type: string
+        format: date-time
+      updated:
+        type: string
+        format: date-time
+      position:
+        type: integer
+      id:
+        type: string
+    type: object
+  RegisterUserType:
+    required:
+      - email
+      - firstName
+      - lastName
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+    type: object
+  User:
+    properties:
+      email:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      firstName:
+        type: string
+      lastName:
+        type: string
+      courses:
+        items:
+          $ref: '#/definitions/Course'
+        type: array
+      created:
+        type: string
+        format: date-time
+      updated:
+        type: string
+        format: date-time
+      id:
+        type: string
+    type: object

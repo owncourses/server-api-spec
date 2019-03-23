@@ -1,0 +1,13 @@
+swagger: '2.0'
+info:
+  title: Courses Server
+  description: API Server for courses platform
+  version: 1.0.0
+securityDefinitions:
+  Bearer:
+    name: Authorization
+    type: apiKey
+    in: header
+    description: 'Value: Bearer {jwt}'
+security:
+  - Bearer: []
