@@ -1,8 +1,0 @@
-specFileName: /Users/pawelmikolajczuk/Projects/owncourses/server-api-spec/openapi.yml
-apiTitle: Own Courses Server
-splitSpec: true
-codeSamples: true
-swaggerUI: true
-travis: true
-repo: owncourses/server-api-spec
-oasVersion: '2.0'
