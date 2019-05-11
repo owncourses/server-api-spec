@@ -262,6 +262,31 @@
         "updated": {
           "type": "string",
           "format": "date-time"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefCoverImage"
+        }
+      },
+      "type": "object"
+    },
+    "HrefCoverImage": {
+      "properties": {
+        "coverImageUrl": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -293,6 +318,15 @@
         },
         "id": {
           "type": "string"
+        },
+        "completed": {
+          "type": "string"
+        },
+        "coverImageName": {
+          "type": "string"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefCoverImage"
         }
       },
       "type": "object"
