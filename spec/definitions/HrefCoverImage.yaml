@@ -1,0 +1,4 @@
+properties:
+  coverImageUrl:
+    type: string
+type: object

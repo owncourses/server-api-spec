@@ -17,4 +17,10 @@ properties:
     type: integer
   id:
     type: string
+  completed:
+    type: string
+  coverImageName:
+    type: string
+  href:
+    $ref: '#/definitions/HrefCoverImage'
 type: object
