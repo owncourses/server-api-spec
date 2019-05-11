@@ -104,6 +104,43 @@
         ]
       }
     },
+    "/api/lessons/{lessonId}/progress": {
+      "patch": {
+        "summary": "Marks (or unmarks) lesson as completed.",
+        "parameters": [
+          {
+            "name": "lessonId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Mark lesson as completed",
+            "in": "body",
+            "description": "Complete lesson form",
+            "schema": {
+              "$ref": "#/definitions/LessonProgress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the lesson details view",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          }
+        },
+        "tags": [
+          "lessons"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/api/login_check": {
       "post": {
         "description": "Login into the api.",
@@ -256,6 +293,17 @@
         },
         "id": {
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LessonProgress": {
+      "required": [
+        "completed"
+      ],
+      "properties": {
+        "completed": {
+          "type": "boolean"
         }
       },
       "type": "object"
