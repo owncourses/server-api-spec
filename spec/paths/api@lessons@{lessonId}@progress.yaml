@@ -1,21 +1,21 @@
-patch:
-    summary: Marks (or unmarks) lesson as completed.
-    parameters:
-        - name: lessonId
-          in: path
-          required: true
-          type: string
-        - name: Mark lesson as completed
-          in: body
-          description: Complete lesson form
-          schema:
-              $ref: '#/definitions/LessonProgress'
-    responses:
-        '200':
-            description: Returns the lesson details view
-            schema:
-                $ref: '#/definitions/Lesson'
-    tags:
-        - lessons
-    security:
-        - Bearer: []
+put:
+  summary: Marks (or unmarks) lesson as completed.
+  parameters:
+    - name: lessonId
+      in: path
+      required: true
+      type: string
+    - name: Mark lesson as completed
+      in: body
+      description: Complete lesson form
+      schema:
+        $ref: '#/definitions/LessonProgress'
+  responses:
+    '200':
+      description: Returns the lesson details view
+      schema:
+        $ref: '#/definitions/Lesson'
+  tags:
+    - lessons
+  security:
+    - Bearer: []

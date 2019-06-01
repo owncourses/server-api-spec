@@ -23,4 +23,4 @@ post:
             type: string
         type: object
   tags:
-    - Login
+    - login
