@@ -105,7 +105,7 @@
       }
     },
     "/api/lessons/{lessonId}/progress": {
-      "patch": {
+      "put": {
         "summary": "Marks (or unmarks) lesson as completed.",
         "parameters": [
           {
@@ -180,7 +180,7 @@
           }
         },
         "tags": [
-          "Login"
+          "login"
         ]
       }
     },

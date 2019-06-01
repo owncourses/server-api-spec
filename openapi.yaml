@@ -63,7 +63,7 @@ paths:
       security:
         - Bearer: []
   '/api/lessons/{lessonId}/progress':
-    patch:
+    put:
       summary: Marks (or unmarks) lesson as completed.
       parameters:
         - name: lessonId
@@ -110,7 +110,7 @@ paths:
                 type: string
             type: object
       tags:
-        - Login
+        - login
   /api/users/me:
     get:
       summary: Get current user data.
