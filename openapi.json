@@ -238,6 +238,23 @@
     }
   },
   "definitions": {
+    "Author": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefAuthorImage"
+        }
+      },
+      "type": "object"
+    },
     "Course": {
       "properties": {
         "id": {
@@ -279,13 +296,27 @@
         },
         "href": {
           "$ref": "#/definitions/HrefCoverImage"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Author"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "HrefAuthorImage": {
+      "properties": {
+        "picture": {
+          "type": "string"
         }
       },
       "type": "object"
     },
     "HrefCoverImage": {
       "properties": {
-        "coverImageUrl": {
+        "cover_image_url": {
           "type": "string"
         }
       },
