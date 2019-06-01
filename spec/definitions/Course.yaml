@@ -27,4 +27,8 @@ properties:
     type: boolean
   href:
     $ref: '#/definitions/HrefCoverImage'
+  authors:
+    type: array
+    items:
+      $ref: '#/definitions/Author'
 type: object

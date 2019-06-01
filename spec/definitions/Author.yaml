@@ -1,0 +1,10 @@
+properties:
+  name:
+    type: string
+  bio:
+    type: string
+  picture:
+    type: string
+  href:
+    $ref: '#/definitions/HrefAuthorImage'
+type: object

@@ -1,4 +1,4 @@
 properties:
-  cover_image_url:
+  picture:
     type: string
 type: object
