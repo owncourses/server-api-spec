@@ -255,6 +255,8 @@ definitions:
         type: string
       embedCode:
         type: string
+      embedType:
+        type: string
       module:
         $ref: '#/definitions/Module'
       created:
