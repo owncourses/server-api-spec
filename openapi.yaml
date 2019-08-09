@@ -190,6 +190,66 @@ paths:
             $ref: '#/definitions/User'
       tags:
         - users
+  '/pi/bookmarks/{bookmarkId}':
+    delete:
+      summary: Delete user bookmark
+      parameters:
+        - name: bookmarkId
+          in: path
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OK
+      tags:
+        - bookmarks
+      security:
+        - Bearer: []
+  '/pi/lessons/{lessonId}/bookmarks':
+    get:
+      summary: List all user bookmarks
+      parameters:
+        - name: lessonId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Bookmark'
+            type: array
+      tags:
+        - lessons
+      security:
+        - Bearer: []
+    post:
+      summary: Create new user bookmark
+      parameters:
+        - name: lessonId
+          in: path
+          required: true
+          type: string
+        - name: Bookmark
+          in: body
+          description: Detail of bookmark
+          schema:
+            properties:
+              title:
+                type: string
+              timeInSeconds:
+                type: number
+            type: object
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/Bookmark'
+      tags:
+        - lessons
+      security:
+        - Bearer: []
 definitions:
   Author:
     properties:
@@ -201,6 +261,19 @@ definitions:
         type: string
       href:
         $ref: '#/definitions/HrefAuthorImage'
+    type: object
+  Bookmark:
+    properties:
+      lesson:
+        $ref: '#/definitions/Lesson'
+      timeInSeconds:
+        type: number
+      user:
+        $ref: '#/definitions/User'
+      title:
+        type: string
+      id:
+        type: string
     type: object
   Course:
     properties:
