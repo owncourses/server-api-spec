@@ -1,0 +1,12 @@
+properties:
+  lesson:
+    $ref: '#/definitions/Lesson'
+  timeInSeconds:
+    type: number
+  user:
+    $ref: '#/definitions/User'
+  title:
+    type: string
+  id:
+    type: string
+type: object

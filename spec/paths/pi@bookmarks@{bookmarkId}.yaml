@@ -1,0 +1,14 @@
+delete:
+  summary: Delete user bookmark
+  parameters:
+    - name: bookmarkId
+      in: path
+      required: true
+      type: string
+  responses:
+    '204':
+      description: OK
+  tags:
+    - bookmarks
+  security:
+    - Bearer: []
