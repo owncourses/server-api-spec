@@ -184,6 +184,42 @@
         ]
       }
     },
+    "/api/users/check-email": {
+      "post": {
+        "summary": "Check is user exists in system, and return it details.",
+        "parameters": [
+          {
+            "name": "Check if user exists in system",
+            "in": "body",
+            "schema": {
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return user data",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "Return when user is not found"
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
     "/api/users/me": {
       "get": {
         "summary": "Get current user data.",
