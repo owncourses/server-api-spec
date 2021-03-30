@@ -1,0 +1,704 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Courses Server",
+    "description": "API Server for courses platform",
+    "version": "1.0.0"
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "Authorization",
+      "type": "apiKey",
+      "in": "header",
+      "description": "Value: Bearer {jwt}"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/api/courses": {
+      "get": {
+        "summary": "List the all courses active in this instance.",
+        "responses": {
+          "200": {
+            "description": "Returns the courses configured in platform",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Course"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "courses"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/courses/{courseId}/modules": {
+      "get": {
+        "summary": "List the active course modules.",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the courses configured in platform",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Module"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "courses"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/lessons/{lessonId}": {
+      "get": {
+        "summary": "Returns lesson details view.",
+        "parameters": [
+          {
+            "name": "lessonId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the lesson details view",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          }
+        },
+        "tags": [
+          "lessons"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/lessons/{lessonId}/progress": {
+      "put": {
+        "summary": "Marks (or unmarks) lesson as completed.",
+        "parameters": [
+          {
+            "name": "lessonId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Mark lesson as completed",
+            "in": "body",
+            "description": "Complete lesson form",
+            "schema": {
+              "$ref": "#/definitions/LessonProgress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the lesson details view",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          }
+        },
+        "tags": [
+          "lessons"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/login_check": {
+      "post": {
+        "description": "Login into the api.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "description": "User to login",
+            "schema": {
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "/api/users/check-email": {
+      "post": {
+        "summary": "Check is user exists in system, and return it details.",
+        "parameters": [
+          {
+            "name": "Check if user exists in system",
+            "in": "body",
+            "schema": {
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return user data",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "Return when user is not found"
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "summary": "Get current user data.",
+        "responses": {
+          "200": {
+            "description": "Returns current user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/users/password/reset_request": {
+      "post": {
+        "summary": "Request for password reset email.",
+        "parameters": [
+          {
+            "name": "reset_request",
+            "in": "body",
+            "description": "It sends reset password reset link",
+            "schema": {
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Register new user",
+            "schema": {
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/password/reset": {
+      "post": {
+        "summary": "Reset password.",
+        "parameters": [
+          {
+            "name": "reset",
+            "in": "body",
+            "description": "It reset password",
+            "schema": {
+              "required": [
+                "password",
+                "repeatedPassword"
+              ],
+              "properties": {
+                "password": {
+                  "type": "string"
+                },
+                "repeatedPassword": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reset password",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/register": {
+      "post": {
+        "summary": "Register new user (accessible only from trusted servers).",
+        "parameters": [
+          {
+            "name": "register_user",
+            "in": "body",
+            "description": "Register user form",
+            "schema": {
+              "properties": {
+                "register_user": {
+                  "$ref": "#/definitions/RegisterUserType"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Register new user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/pi/bookmarks/{bookmarkId}": {
+      "delete": {
+        "summary": "Delete user bookmark",
+        "parameters": [
+          {
+            "name": "bookmarkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "bookmarks"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/pi/lessons/{lessonId}/bookmarks": {
+      "get": {
+        "summary": "List all user bookmarks",
+        "parameters": [
+          {
+            "name": "lessonId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Bookmark"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "lessons"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create new user bookmark",
+        "parameters": [
+          {
+            "name": "lessonId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Bookmark",
+            "in": "body",
+            "description": "Detail of bookmark",
+            "schema": {
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "timeInSeconds": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Bookmark"
+            }
+          }
+        },
+        "tags": [
+          "lessons"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Author": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefAuthorImage"
+        }
+      },
+      "type": "object"
+    },
+    "Bookmark": {
+      "properties": {
+        "lesson": {
+          "$ref": "#/definitions/Lesson"
+        },
+        "timeInSeconds": {
+          "type": "number"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "title": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Course": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "coverImageName": {
+          "type": "string"
+        },
+        "coverImageFile": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefCoverImage"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Author"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "HrefAuthorImage": {
+      "properties": {
+        "picture": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "HrefCoverImage": {
+      "properties": {
+        "cover_image_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Lesson": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "embedCode": {
+          "type": "string"
+        },
+        "embedType": {
+          "type": "string"
+        },
+        "module": {
+          "$ref": "#/definitions/Module"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "string"
+        },
+        "coverImageName": {
+          "type": "string"
+        },
+        "href": {
+          "$ref": "#/definitions/HrefCoverImage"
+        }
+      },
+      "type": "object"
+    },
+    "LessonProgress": {
+      "required": [
+        "completed"
+      ],
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "Module": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "course": {
+          "$ref": "#/definitions/Course"
+        },
+        "lessons": {
+          "items": {
+            "$ref": "#/definitions/Lesson"
+          },
+          "type": "array"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "RegisterUserType": {
+      "required": [
+        "email",
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "User": {
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "roles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "courses": {
+          "items": {
+            "$ref": "#/definitions/Course"
+          },
+          "type": "array"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}
